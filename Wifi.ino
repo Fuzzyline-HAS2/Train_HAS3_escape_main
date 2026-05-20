@@ -43,15 +43,6 @@ void DataChanged()
         ota.check();
     }
   }
-  // selected_language 변경 감지 (shift_machine 기준)
-  static String lastLanguage = "";
-  String curLanguage = (String)(const char*)shift_machine["selected_language"];
-  if (curLanguage != lastLanguage) {
-      isEnglish = (curLanguage == "EN");
-      lastLanguage = curLanguage;
-      Serial.println("[LANG] Language changed: " + curLanguage);
-  }
-
   cur = my;
 }
 
