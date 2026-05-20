@@ -9,7 +9,7 @@
  *
  */
 
-#define FIRMWARE_VER 12
+#define FIRMWARE_VER 13
 #include "updated_escape_main.h"
 
 void setup() {

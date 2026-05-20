@@ -43,6 +43,17 @@ void CommnunicationBeetle(){
       Serial.println("TAG2 = " + tag2);
       Serial.println("TAG3 = " + tag3);
 
+      // mmmm 카드: ready ↔ activate 토글
+      if (tag1 == "mmmm" || tag2 == "mmmm" || tag3 == "mmmm") {
+          if (ptrCurrentMode == TagCount) {
+              ReadyFunc();
+          } else {
+              ActivateFunc();
+          }
+          ResetBeetleErrorCounters();
+          return;
+      }
+
       tagState[0] = PlayerDetector(tag1);
       tagState[1] = PlayerDetector(tag2);
       tagState[2] = PlayerDetector(tag3);
@@ -80,16 +91,13 @@ bool PlayerDetector(String playerNum)
     return false;
 
   has2wifi.Receive(playerNum);
-  String role = (String)(const char*)tag["role"];
+  String playerName = (String)(const char*)tag["player_name"];
 
-  if (role == "player") {
-    return true;
-  } else if (role == "tagger") {
-    return false;
-  } else {
-    // role 미해석: 서버 미등록 태그 또는 UART 노이즈
-    tagParseErrorCount++;
-    Serial.println("[UART] WARN tag role unresolved: '" + role + "' for " + playerNum);
-    return false;
-  }
+  if (playerName == "G9P1") return false;         // 술래
+  if (playerName == "G9P2") return false;         // 유령
+  if (playerName.startsWith("G9P")) return true;  // G9P3~G9P8 생존자
+
+  tagParseErrorCount++;
+  Serial.println("[UART] WARN player_name unresolved: '" + playerName + "' for " + playerNum);
+  return false;
 }

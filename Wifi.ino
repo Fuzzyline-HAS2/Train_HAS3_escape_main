@@ -43,6 +43,15 @@ void DataChanged()
         ota.check();
     }
   }
+  // selected_language 변경 감지 (shift_machine 기준)
+  static String lastLanguage = "";
+  String curLanguage = (String)(const char*)shift_machine["selected_language"];
+  if (curLanguage != lastLanguage) {
+      isEnglish = (curLanguage == "EN");
+      lastLanguage = curLanguage;
+      Serial.println("[LANG] Language changed: " + curLanguage);
+  }
+
   cur = my;
 }
 
@@ -55,8 +64,8 @@ void SettingFunc(void)
     digitalWrite(RELAY_PIN, HIGH);
     AllNeoOn(WHITE);
     EscapeClose();
-    ptrCurrentMode = WaitFunc;
     GameTimer.disable(gameTimerId);
+    ReadyFunc();
 }
 
 void ActivateFunc(void){
@@ -74,5 +83,6 @@ void ReadyFunc(void){
     digitalWrite(RELAY_PIN, HIGH);
     AllNeoOn(RED);
     EscapeClose();
+    GameTimer.disable(gameTimerId);
     ptrCurrentMode = WaitFunc;
 }
