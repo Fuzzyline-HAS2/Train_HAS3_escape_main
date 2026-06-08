@@ -9,7 +9,7 @@
  *
  */
 
-#define FIRMWARE_VER 14
+#define FIRMWARE_VER 15
 #include "Train_HAS3_escape_main.h"
 
 void setup() {
@@ -17,7 +17,7 @@ void setup() {
     Serial.begin(115200);
     toSubSerial.begin(115200, SERIAL_8N1, HWSERIAL_RX, HWSERIAL_TX);
 //    has2wifi.Setup("city");
-    has2wifi.Setup("badland_shoot", "Has3");
+    has2wifi.Setup("badland_shoot", "Code3824@");
     ota.setLogStream(DebugSerial);
     ota.setOnSuccess([]() {
         has2wifi.Send((String)(const char*)my["device_name"], "device_state", "setting");
