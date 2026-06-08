@@ -1,3 +1,10 @@
+/*
+ * Archived sketch copy.
+ *
+ * Arduino builds every .ino file in the sketch directory, so this historical
+ * copy is intentionally excluded to avoid duplicate setup()/loop() definitions.
+ */
+#if 0
  /**
  * @file Done_Escape_Main_code.ino
  * @author 김병준 (you@domain.com)
@@ -9,7 +16,7 @@
  *
  */
 
-#define FIRMWARE_VER 13
+#define FIRMWARE_VER 14
 #include "updated_escape_main.h"
 
 void setup() {
@@ -66,3 +73,4 @@ void loop() {
     GameTimer.run();
     //QCEngine::getInstance().tick();
 }
+#endif
