@@ -9,7 +9,7 @@
  *
  */
 
-#define FIRMWARE_VER 3
+#define FIRMWARE_VER 4
 #include "Train_HAS3_escape_main.h"
 
 void setup() {
