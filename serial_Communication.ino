@@ -40,9 +40,7 @@ void CommnunicationBeetle(){
       Serial.println("TAG2 = " + tag2);
       Serial.println("TAG3 = " + tag3);
 
-      // [임시/테스트] G2P2 카드를 MMMM 토글 카드처럼 취급. 운영 배포 전 반드시 제거할 것.
-      bool hasToggleCard = (tag1 == "MMMM" || tag2 == "MMMM" || tag3 == "MMMM" ||
-                            tag1 == "G2P2" || tag2 == "G2P2" || tag3 == "G2P2");
+      bool hasToggleCard = (tag1 == "MMMM" || tag2 == "MMMM" || tag3 == "MMMM");
 
       if (hasToggleCard) {
           // 토글 디바운스: 직전 토글(모터 동작 완료) 후 일정 시간은 무시.
@@ -114,18 +112,17 @@ bool PlayerDetector(String playerNum)
   if (playerNum[3] == '0')
     return false;
 
-  if (playerNum == "G2P1") return true;
-
   if (!playerNum.startsWith("G9P")) {
     tagParseErrorCount++;
     Serial.println("[UART] WARN unknown tag prefix: '" + playerNum + "'");
     return false;
   }
 
+  // 역할 구분: G9P1=술래, G9P2=유령, G9P3~G9P9=생존자(탈출 카운트 대상)
   char roleNumber = playerNum[3];
-  if (roleNumber == '1') return false;
-  if (roleNumber == '2') return false;
-  if (roleNumber >= '3' && roleNumber <= '8') return true;
+  if (roleNumber == '1') return false;                     // 술래
+  if (roleNumber == '2') return false;                     // 유령
+  if (roleNumber >= '3' && roleNumber <= '9') return true;  // 생존자
 
   tagParseErrorCount++;
   Serial.println("[UART] WARN unsupported G9P tag: '" + playerNum + "'");
