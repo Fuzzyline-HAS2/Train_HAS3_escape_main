@@ -17,7 +17,7 @@ void TagCount(){
     else if(tagCnt >= 3){
         Serial.println("Escape Activate");
         Mp3PlayLargeFolder(1, VE4);
-        SendDeviceStateWithRetry("escape");
+        has2wifi.Send((String)(const char*)my["device_name"], "device_state", "escape");
         EscapeClose();
         GameTimer.disable(gameTimerId);
         ptrCurrentMode = WaitFunc;

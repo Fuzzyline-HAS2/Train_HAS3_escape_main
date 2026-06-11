@@ -83,25 +83,3 @@ void HandleRuntimeRecovery() {
   }
 }
 
-// ---------------------------------------------------------
-// SendDeviceStateWithRetry: device_state 전송 재시도 래퍼.
-// WiFi 연결 상태 확인 후 retries 회 시도. 실패 시 로그만 남김.
-// ---------------------------------------------------------
-bool SendDeviceStateWithRetry(const String &value, uint8_t retries) {
-  for (uint8_t i = 0; i < retries; i++) {
-    if (WiFi.status() != WL_CONNECTED) {
-      Serial.println("[WIFI] WARN: SendDeviceState '" + value + "' attempt " +
-                     String(i + 1) + " skipped (no WiFi)");
-      delay(200);
-      continue;
-    }
-    has2wifi.Send((String)(const char *)my["device_name"], "device_state",
-                  value);
-    Serial.println("[WIFI] SendDeviceState '" + value + "' sent (attempt " +
-                   String(i + 1) + ")");
-    return true;
-  }
-  Serial.println("[WIFI] WARN: SendDeviceState '" + value +
-                 "' all retries failed.");
-  return false;
-}

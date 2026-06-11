@@ -12,7 +12,7 @@ void DataChanged()
         ReadyFunc();
     }
     else if((String)(const char*)my["game_state"] == "activate"){
-        if((String)(const char*)my["device_state"] != "fake"){
+        if((String)(const char*)my["device_state"] != "fake" && ptrCurrentMode != TagCount){
             ActivateFunc();
         }
     }
@@ -34,7 +34,7 @@ void DataChanged()
         EscapeClose();
     }
     else if((String)(const char*)my["device_state"] == "activate"){
-        if((String)(const char*)my["game_state"] == "activate"){
+        if((String)(const char*)my["game_state"] == "activate" && ptrCurrentMode != TagCount){
             ActivateFunc();
         }
     }
@@ -56,6 +56,8 @@ void SettingFunc(void)
     AllNeoOn(WHITE);
     EscapeClose();
     GameTimer.disable(gameTimerId);
+    has2wifi.Send((String)(const char*)my["device_name"], "game_state", "ready");
+    has2wifi.Send((String)(const char*)my["device_name"], "device_state", "ready");
     ReadyFunc();
 }
 
@@ -65,7 +67,7 @@ void ActivateFunc(void){
     AllNeoOn(YELLOW);
     EscapeOpen();
     GameTimer.enable(gameTimerId);
-    toSubSerial.flush();
+    while (toSubSerial.available()) toSubSerial.read(); // EscapeOpen 블로킹 중 쌓인 RX 버퍼 비우기
     ptrCurrentMode = TagCount;
 }
 
@@ -74,6 +76,7 @@ void ReadyFunc(void){
     digitalWrite(RELAY_PIN, HIGH);
     AllNeoOn(RED);
     EscapeClose();
-    GameTimer.disable(gameTimerId);
+    while (toSubSerial.available()) toSubSerial.read();
     ptrCurrentMode = WaitFunc;
+    GameTimer.enable(gameTimerId); // ready 상태에서도 500ms로 카드 폴링 (MMMM 토글 빠른 인식)
 }

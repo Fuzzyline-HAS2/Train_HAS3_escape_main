@@ -1,5 +1,5 @@
-#ifndef _DONE_ESCAPE_MAIN_CODE_
-#define _DONE_ESCAPE_MAIN_CODE_
+#ifndef _TRAIN_HAS3_ESCAPE_MAIN_H_
+#define _TRAIN_HAS3_ESCAPE_MAIN_H_
 
 #include "Library_and_pin.h"
 #include "QC/QC_Engine.h"
@@ -25,9 +25,9 @@ extern TelnetDebugConsole DebugSerial;
 //****************************************WIFI****************************************************************
 HAS2_Wifi has2wifi("http://172.30.1.43");
 SecureOTA ota(
-    "https://raw.githubusercontent.com/Fuzzyline-HAS2/updated_escape_main/third_store/update.bin",
-    "https://raw.githubusercontent.com/Fuzzyline-HAS2/updated_escape_main/third_store/version.txt",
-    "https://raw.githubusercontent.com/Fuzzyline-HAS2/updated_escape_main/third_store/update.sig",
+    "https://raw.githubusercontent.com/Fuzzyline-HAS2/Train_HAS3_escape_main/third_store/update.bin",
+    "https://raw.githubusercontent.com/Fuzzyline-HAS2/Train_HAS3_escape_main/third_store/version.txt",
+    "https://raw.githubusercontent.com/Fuzzyline-HAS2/Train_HAS3_escape_main/third_store/update.sig",
     HMAC_SECRET,
     FIRMWARE_VER
 );
@@ -66,7 +66,6 @@ uint8_t beetleRecoverAttempts = 0;  // Beetle UART 복구 시도 횟수
 void HandleRuntimeRecovery();
 void RecoverBeetleConnection();
 void ResetBeetleErrorCounters();
-bool SendDeviceStateWithRetry(const String& value, uint8_t retries = 3);
 //****************************************Step
 //Motor****************************************************************
 void StepMotorInit();
