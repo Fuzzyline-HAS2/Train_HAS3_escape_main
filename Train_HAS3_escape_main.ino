@@ -9,7 +9,7 @@
  *
  */
 
-#define FIRMWARE_VER 12
+#define FIRMWARE_VER 13
 #include "Train_HAS3_escape_main.h"
 
 void setup() {
@@ -62,7 +62,6 @@ void setup() {
 }
 void loop() {
     TelnetRun();
-    CommnunicationBeetle(); // 카드/태그를 매 루프마다 즉시 읽음 (ready 상태 2초 지연 제거)
     WifiTimer.run();
     GameTimer.run();
     //QCEngine::getInstance().tick();
