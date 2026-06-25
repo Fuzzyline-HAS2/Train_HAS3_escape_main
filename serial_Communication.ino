@@ -40,7 +40,7 @@ void CommnunicationBeetle(){
       Serial.println("TAG2 = " + tag2);
       Serial.println("TAG3 = " + tag3);
 
-      bool hasToggleCard = (tag1 == "TTTT" || tag2 == "TTTT" || tag3 == "TTTT");
+      bool hasToggleCard = (tag1 == "MMMM" || tag2 == "MMMM" || tag3 == "MMMM");
 
       if (hasToggleCard) {
           // 토글 디바운스: 직전 토글(모터 동작 완료) 후 일정 시간은 무시.
@@ -87,9 +87,6 @@ void CommnunicationBeetle(){
     }
     else if(cmd == 'B'){
       Serial.println(command);
-    }
-    else if(cmd == 'M'){
-      ESP.restart();
     }
     else {
       invalidCmdCount++;
