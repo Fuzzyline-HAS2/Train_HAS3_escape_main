@@ -9,7 +9,7 @@
  *
  */
 
-#define FIRMWARE_VER 15
+#define FIRMWARE_VER 16
 #define PARTITION_VER 1
 #include "Train_HAS3_escape_main.h"
 
