@@ -57,7 +57,7 @@ void CommnunicationBeetle(){
       ResetBeetleErrorCounters();
     }
     else if(cmd == 'E'){
-      // side effect from MMMM card, ignore
+      ResetBeetleErrorCounters();
     }
     else if(cmd == 'M'){
       PerformToggle();

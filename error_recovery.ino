@@ -13,6 +13,7 @@ void ResetBeetleErrorCounters() {
   packetFormatErrorCount = 0;
   tagParseErrorCount = 0;
   beetleBadEventStreak = 0;
+  beetleRecoverAttempts = 0;
 }
 
 // ---------------------------------------------------------
