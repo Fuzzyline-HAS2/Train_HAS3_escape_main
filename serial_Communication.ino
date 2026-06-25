@@ -1,10 +1,10 @@
 void CommnunicationBeetle(){
   Serial.println("READ");
-  if(toSubSerial.available() > 0){
+  while(toSubSerial.available() > 0){
     lastBeetleMs = millis();
     String command = toSubSerial.readStringUntil('\n');
 
-    if (command.length() == 0) return;
+    if (command.length() == 0) continue;
 
     char cmd = command[0];
 
@@ -28,7 +28,7 @@ void CommnunicationBeetle(){
       if (!fmtOk) {
         packetFormatErrorCount++;
         Serial.println("[UART] WARN malformed T packet: " + command);
-        return;
+        continue;
       }
 
       Serial.println(command);
@@ -47,7 +47,6 @@ void CommnunicationBeetle(){
           tag1 = ""; tag2 = ""; tag3 = "";
           tagState[0] = false; tagState[1] = false; tagState[2] = false;
           ResetBeetleErrorCounters();
-          while (toSubSerial.available()) toSubSerial.read();
           return;
       }
 
@@ -58,11 +57,11 @@ void CommnunicationBeetle(){
       ResetBeetleErrorCounters();
     }
     else if(cmd == 'E'){
-      return;
+      // side effect from MMMM card, ignore
     }
     else if(cmd == 'M'){
       PerformToggle();
-      while (toSubSerial.available()) toSubSerial.read();
+      return;
     }
     else if(cmd == 'B'){
       Serial.println(command);
@@ -71,9 +70,6 @@ void CommnunicationBeetle(){
       invalidCmdCount++;
       Serial.println("[UART] WARN unknown command '" + String(cmd) + "'");
     }
-  }
-  while(toSubSerial.available()){
-    toSubSerial.read();
   }
 }
 
