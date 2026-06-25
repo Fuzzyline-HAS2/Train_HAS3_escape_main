@@ -84,12 +84,16 @@ void PerformToggle() {
   String deviceState = (String)(const char*)my["device_state"];
   if (deviceState == "ready") {
     my["device_state"] = "activate";
+    my["game_state"] = "activate";
     ActivateFunc();
     has2wifi.Send((String)(const char*)my["device_name"], "device_state", "activate");
+    has2wifi.Send((String)(const char*)my["device_name"], "game_state", "activate");
   } else if (deviceState == "activate") {
     my["device_state"] = "ready";
+    my["game_state"] = "ready";
     ReadyFunc();
     has2wifi.Send((String)(const char*)my["device_name"], "device_state", "ready");
+    has2wifi.Send((String)(const char*)my["device_name"], "game_state", "ready");
   }
   lastToggleMs = millis();
 }
