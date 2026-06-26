@@ -9,7 +9,7 @@
  *
  */
 
-#define FIRMWARE_VER 21
+#define FIRMWARE_VER 22
 #define PARTITION_VER 2
 #include "Train_HAS3_escape_main.h"
 
