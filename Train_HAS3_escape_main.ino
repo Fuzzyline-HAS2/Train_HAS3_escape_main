@@ -9,7 +9,7 @@
  *
  */
 
-#define FIRMWARE_VER 23
+#define FIRMWARE_VER 25
 #define PARTITION_VER 2
 #include "Train_HAS3_escape_main.h"
 
@@ -33,6 +33,7 @@ void setup() {
         PARTITION_VER
     );
     TelnetInit();
+    Serial.println("[BOOT] FIRMWARE_VER=" + String(FIRMWARE_VER));
     NeopixelInit();
     TimerInit();
     Mp3_Setup();
