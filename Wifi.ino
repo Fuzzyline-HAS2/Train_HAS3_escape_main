@@ -56,9 +56,6 @@ void SettingFunc(void)
     AllNeoOn(WHITE);
     EscapeClose();
     GameTimer.disable(gameTimerId);
-    has2wifi.Send((String)(const char*)my["device_name"], "game_state", "ready");
-    has2wifi.Send((String)(const char*)my["device_name"], "device_state", "ready");
-    ReadyFunc();
 }
 
 void ActivateFunc(void){
